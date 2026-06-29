@@ -1,12 +1,12 @@
 services:
   backend:
-    build: ./backend
+    build: ./colorful-footwear-site/backend
     container_name: footwear-backend
     ports:
       - "5000:5000"
 
   frontend:
-    build: ./frontend
+    build: ./colorful-footwear-site/frontend
     container_name: footwear-frontend
     ports:
       - "8081:80"
