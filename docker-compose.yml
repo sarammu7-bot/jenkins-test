@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: ./backend
+    container_name: footwear-backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: footwear-frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
