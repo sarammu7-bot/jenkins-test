@@ -3,38 +3,40 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
+        stage('Clone Repository') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/sarammu7-bot/jenkins-test.git'
+                    url: 'https://github.com/sarammu7-bot/jenkins-test.git'
             }
         }
 
-        stage('Install Backend') {
+        stage('Build Docker Images') {
             steps {
-                dir('colorful-footwear-site/backend') {
-                    sh 'npm install'
+                dir('colorful-footwear-site') {
+                    sh 'docker-compose build'
                 }
             }
         }
 
-        stage('Start Backend') {
+        stage('Stop Old Containers') {
             steps {
-                dir('colorful-footwear-site/backend') {
-                    sh '''
-                    pkill -f "node server.js" || true
-                    nohup node server.js > app.log 2>&1 &
-                    '''
+                dir('colorful-footwear-site') {
+                    sh 'docker-compose down || true'
                 }
             }
         }
 
-        stage('Deploy Frontend') {
+        stage('Start New Containers') {
             steps {
-                sh '''
-                sudo mkdir -p /var/www/html
-                sudo cp -r colorful-footwear-site/frontend/* /var/www/html/
-                '''
+                dir('colorful-footwear-site') {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+
+        stage('Verify Running Containers') {
+            steps {
+                sh 'docker ps'
             }
         }
     }
