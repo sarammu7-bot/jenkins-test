@@ -12,4 +12,7 @@ app.get('/products',(req,res)=>res.json([
 {id:5,name:'Color Splash',price:139,desc:'Trendy colorful sneaker',image:'https://images.pexels.com/photos/605090/pexels-photo-605090.jpeg'}
 ]));
 
-app.listen(5000);
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
+});

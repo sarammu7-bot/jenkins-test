@@ -31,6 +31,15 @@ pipeline {
                 dir('colorful-footwear-site') {
                     sh 'docker-compose up -d'
                 }
+<<<<<<< HEAD
+            }
+        }
+
+        stage('Verify Running Containers') {
+            steps {
+                sh 'docker ps'
+=======
+>>>>>>> f8d4a9d (Add Docker deployment configuration)
             }
         }
 
@@ -39,5 +48,7 @@ pipeline {
                 sh 'docker ps'
             }
         }
+      
     }
-}
+
+ }
